@@ -13,9 +13,9 @@
     } from 'chart.js';
 
 
-    export let actual;
-    export let predicted;
-    export let title;
+    export let actual: string[];
+    export let predicted: string[];
+    export let title: string;
 
   
        

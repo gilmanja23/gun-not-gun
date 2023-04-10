@@ -8,13 +8,13 @@
         uploadedImage = URL.createObjectURL(image);
     }
 
-    let models:string[] = ["CNN One", "CNN Two", "CNN Three", "CNN Four"]
+    let models: string[] = ["CNN One", "CNN Two", "CNN Three", "CNN Four"]
 
-    let selectedModel:string = ""
+    let selectedModel: string = ""
 
-    let loading:boolean = false
+    let loading: boolean = false
 
-    let response:string = ""
+    let response: string = ""
 
     const classify = () => {
         // loading = true

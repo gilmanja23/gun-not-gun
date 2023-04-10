@@ -3,7 +3,7 @@
     import Stats from "./Stats.svelte";
     import Classify from "./Classify.svelte";
 
-    export let tabID:number;
+    export let tabID: number;
 
 </script>
 
