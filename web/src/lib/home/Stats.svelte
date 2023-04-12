@@ -20,7 +20,7 @@
             }
         },
         {
-            "model": "Joe is gay",
+            "model": "Joe",
             "actual": [1, 2, 3, 3, 10, 1, 3],
             "predicted": [1, 2, 3, 3, 4, 2, 3],
             "stats": {
