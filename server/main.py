@@ -2,8 +2,17 @@ from typing import Union
 
 from fastapi import FastAPI
 from pydantic import BaseModel
+import tensorflow as tf
 
 app = FastAPI()
+
+
+
+# Recreate the exact same model, including its weights and the optimizer
+new_model = tf.keras.models.load_model('models/model1.h5')
+
+# Show the model architecture
+new_model.summary()
 
 
 class Item(BaseModel):
