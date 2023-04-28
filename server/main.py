@@ -28,6 +28,7 @@ app.add_middleware(
 
 # Recreate the exact same model, including its weights and the optimizer
 new_model = tf.keras.models.load_model('../models/model1_inc.h5')
+model3 = tf.keras.models.load_model('../models/model3.h5')
 
 class Item(BaseModel):
     name: str
@@ -61,6 +62,31 @@ def get_prediction(img: UploadFile = File(...)):
 
     # Pass the preprocessed image to your model for prediction
     predictions = new_model.predict(img_array)
+
+    # Print the predicted outputs
+    # print("Preds----------------------------")
+    # print(predictions)
+
+    predicted_class = np.argmax(predictions, axis=1)
+    if predicted_class == 0:
+        print("Gun")
+        return {"prediction": "Gun"}
+    else:
+        print("Not Gun")
+        return {"prediction": "Not Gun"}
+
+@app.post("/prediction_model3")
+def get_prediction_model3(img: UploadFile = File(...)):
+    print(img.content_type)
+    img_data = img.file.read()
+    img_stream = BytesIO(img_data)
+    img = image.load_img(img_stream, target_size=(112, 112)) # resize to match model input size
+    img_array = image.img_to_array(img)
+    img_array = np.expand_dims(img_array, axis=0) # add batch dimension
+    #img_array = img_array / 255.0 # normalize pixel values
+
+    # Pass the preprocessed image to your model for prediction
+    predictions = model3.predict(img_array)
 
     # Print the predicted outputs
     # print("Preds----------------------------")
