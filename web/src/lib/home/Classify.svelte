@@ -1,12 +1,39 @@
 <script lang="ts">
     let uploadedImage: string;
+    let imageFile: File;
 
     function handleImageUpload(e: Event) {
         const image = (e.target as HTMLInputElement)?.files?.[0];
         if (!image) return;
         // URL.createObjectURL() creates a temporary URL for the image we can use as src for an img tag
         uploadedImage = URL.createObjectURL(image);
+        imageFile = image;
     }
+
+    async function handleClassify() {
+        if (!imageFile) return;
+
+
+        const formData = new FormData();
+        formData.append('img', imageFile);
+
+        console.log(formData)
+    
+        await fetch('http://127.0.0.1:8000/prediction', {
+            method: 'POST',
+            body: formData,
+            mode: 'cors'
+        })
+        .then(response => response.json())
+        .then(data => {
+            response = data.prediction;
+            console.log(response)
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    }
+    
 
     let models: string[] = ["CNN One", "CNN Two", "CNN Three", "CNN Four"]
 
@@ -18,7 +45,7 @@
 
     const classify = () => {
         // loading = true
-
+        handleClassify()
         response = "Nope no gun here"
     }
 
