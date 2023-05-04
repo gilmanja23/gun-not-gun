@@ -34,8 +34,31 @@
         });
     }
     
+    async function handleClassifyTwo() {
+        if (!imageFile) return;
 
-    let models: string[] = ["CNN One", "CNN Two", "CNN Three", "CNN Four"]
+
+        const formData = new FormData();
+        formData.append('img', imageFile);
+
+        console.log(formData)
+    
+        await fetch('http://127.0.0.1:8000/prediction_model3', {
+            method: 'POST',
+            body: formData,
+            mode: 'cors'
+        })
+        .then(response => response.json())
+        .then(data => {
+            response = data.prediction;
+            console.log(response)
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    }
+
+    let models: string[] = ["CNN One", "CNN Two"]
 
     let selectedModel: string = ""
 
@@ -45,9 +68,14 @@
 
     const classify = () => {
         // loading = true
-        handleClassify()
-        response = "Nope no gun here"
-    }
+        if(selectedModel === "") {
+            alert("Please select a model for!")
+        } else if (selectedModel === "CNN One") {
+            handleClassify()
+        } else {
+            handleClassifyTwo()
+        }
+     }
 
 </script>
 
